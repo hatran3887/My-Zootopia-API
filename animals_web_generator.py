@@ -40,6 +40,9 @@ def main():
     animals_data = load_data(animal_to_search)
 
     animals_data_string = ''
+    if not animals_data:
+        animals_data_string = f'<h2>The animal "{animal_to_search}" doesn\'t exist.</h2>'
+
     for animal in animals_data:
         animals_data_string += serialize_animal(animal)
 
