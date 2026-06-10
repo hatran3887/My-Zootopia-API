@@ -10,12 +10,11 @@ NAME_PARAM = 'name'
 REQUEST_URL = 'https://api.api-ninjas.com/v1/animals'
 
 
-def load_data():
-    """Loads 10 animals from api ninjas"""
-    res = requests.get(f'{REQUEST_URL}?{API_KEY_PARAM}={API_KEY}&{NAME_PARAM}=Fox')
+def load_data(animal_name):
+    """Loads animals from api ninjas with name"""
+    res = requests.get(f'{REQUEST_URL}?{API_KEY_PARAM}={API_KEY}&{NAME_PARAM}={animal_name}')
     parsed = res.json()
-    for animal in parsed:
-        print(animal)
+    return parsed
 
 
 def serialize_animal(animal_obj):
@@ -37,8 +36,9 @@ def serialize_animal(animal_obj):
 
 def main():
     """Main function"""
-    animals_data = load_data()
-    """
+    animal_to_search = input('Enter a name of an animal: ')
+    animals_data = load_data(animal_to_search)
+
     animals_data_string = ''
     for animal in animals_data:
         animals_data_string += serialize_animal(animal)
@@ -49,6 +49,7 @@ def main():
     filled_template = template.replace(REPLACE_TEMPLATE_TEXT, animals_data_string)
     with open('animals.html', 'w') as handle:
         handle.write(filled_template)
-"""
+        print("Website was successfully generated to the file animals.html.")
+
 if __name__ == '__main__':
     main()
