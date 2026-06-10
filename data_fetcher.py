@@ -1,9 +1,13 @@
 """
 Responsible for fetching animals data from api ninjas with name
 """
+import os
+from dotenv import load_dotenv
 import requests
 
-API_KEY = 'LM4wmPxYH4gs2uL4o2hk56UwGjS9aIL9M4eARpzC'
+load_dotenv()
+
+API_KEY = os.getenv('API_KEY')
 API_KEY_PARAM = 'X-Api-Key'
 NAME_PARAM = 'name'
 REQUEST_URL = 'https://api.api-ninjas.com/v1/animals'
