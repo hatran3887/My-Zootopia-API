@@ -10,14 +10,16 @@ def serialize_animal(animal_obj):
     """Serializes an animal object"""
     animal_string = ''
     animal_string += '<li class="cards__item">\n'
-    animal_string += f'<div class="card__title">{animal_obj["name"]}</div>\n'
-    animal_string += '<p class="card__text">\n'
-    animal_string += f'<strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
-    animal_string += f'<strong>Location:</strong> {animal_obj["locations"][0]}<br/>\n'
 
-    animal_type = animal_obj["characteristics"].get("type")
-    if animal_type:
-        animal_string += f'<strong>Type:</strong> {animal_type}<br/>\n'
+    if animal_obj.get("name"):
+        animal_string += f'<div class="card__title">{animal_obj["name"]}</div>\n'
+    animal_string += '<p class="card__text">\n'
+    if animal_obj.get("characteristics").get("diet"):
+        animal_string += f'<strong>Diet:</strong> {animal_obj["characteristics"]["diet"]}<br/>\n'
+    if animal_obj.get("locations"):
+        animal_string += f'<strong>Location:</strong> {animal_obj["locations"][0]}<br/>\n'
+    if animal_obj.get("characteristics").get("type"):
+        animal_string += f'<strong>Type:</strong> {animal_obj["characteristics"]["type"]}<br/>\n'
     animal_string += '</p>\n'
     animal_string += '</li>\n'
     return animal_string
