@@ -1,20 +1,9 @@
 """
 Animals Web Generator
 """
-import requests
+from data_fetcher import fetch_data
 
 REPLACE_TEMPLATE_TEXT = '__REPLACE_ANIMALS_INFO__'
-API_KEY = 'LM4wmPxYH4gs2uL4o2hk56UwGjS9aIL9M4eARpzC'
-API_KEY_PARAM = 'X-Api-Key'
-NAME_PARAM = 'name'
-REQUEST_URL = 'https://api.api-ninjas.com/v1/animals'
-
-
-def load_data(animal_name):
-    """Loads animals from api ninjas with name"""
-    res = requests.get(f'{REQUEST_URL}?{API_KEY_PARAM}={API_KEY}&{NAME_PARAM}={animal_name}')
-    parsed = res.json()
-    return parsed
 
 
 def serialize_animal(animal_obj):
@@ -37,7 +26,7 @@ def serialize_animal(animal_obj):
 def main():
     """Main function"""
     animal_to_search = input('Enter a name of an animal: ')
-    animals_data = load_data(animal_to_search)
+    animals_data = fetch_data(animal_to_search)
 
     animals_data_string = ''
     if not animals_data:
