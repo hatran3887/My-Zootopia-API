@@ -1,15 +1,21 @@
 """
 Animals Web Generator
 """
-import json
+import requests
 
 REPLACE_TEMPLATE_TEXT = '__REPLACE_ANIMALS_INFO__'
+API_KEY = 'LM4wmPxYH4gs2uL4o2hk56UwGjS9aIL9M4eARpzC'
+API_KEY_PARAM = 'X-Api-Key'
+NAME_PARAM = 'name'
+REQUEST_URL = 'https://api.api-ninjas.com/v1/animals'
 
 
-def load_data(file_path):
-    """Loads a JSON file"""
-    with open(file_path, 'r') as handle:
-        return json.load(handle)
+def load_data():
+    """Loads 10 animals from api ninjas"""
+    res = requests.get(f'{REQUEST_URL}?{API_KEY_PARAM}={API_KEY}&{NAME_PARAM}=Fox')
+    parsed = res.json()
+    for animal in parsed:
+        print(animal)
 
 
 def serialize_animal(animal_obj):
@@ -31,7 +37,8 @@ def serialize_animal(animal_obj):
 
 def main():
     """Main function"""
-    animals_data = load_data('animals_data.json')
+    animals_data = load_data()
+    """
     animals_data_string = ''
     for animal in animals_data:
         animals_data_string += serialize_animal(animal)
@@ -42,6 +49,6 @@ def main():
     filled_template = template.replace(REPLACE_TEMPLATE_TEXT, animals_data_string)
     with open('animals.html', 'w') as handle:
         handle.write(filled_template)
-
+"""
 if __name__ == '__main__':
     main()
